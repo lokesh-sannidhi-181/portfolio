@@ -1,0 +1,1216 @@
+<meta charset="utf-8">
+<title>Lokesh Sannidhi</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --void:#050d0a; --ground:#09150f; --panel:#0e1d16; --raised:#13271d;
+  --line:#1e3629; --line-2:#152720; --grid:rgba(236,230,217,.03);
+  --ivory:#ece6d9; --ivory-2:#a2b1a6; --ivory-3:#6a7d71;
+  --gold:#cfa049; --gold-dim:#33280f;
+  --sage:#6cc4a0; --sage-dim:#0f2a20;
+  --red:#d9776c;
+  --serif:'Fraunces',Georgia,serif;
+  --body:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme: light;
+    --void:#e9e4d4; --ground:#f4f0e4; --panel:#fbf8ef; --raised:#eee9da;
+    --line:#dad2bd; --line-2:#e6e0ce; --grid:rgba(10,25,18,.04);
+    --ivory:#0d1f17; --ivory-2:#48594f; --ivory-3:#78877d;
+    --gold:#8a6414; --gold-dim:#f1e6cc; --sage:#1f6d54; --sage-dim:#dff0e7;
+    --red:#a6433a;
+  }
+}
+:root[data-theme="light"]{
+  color-scheme: light;
+  --void:#e9e4d4; --ground:#f4f0e4; --panel:#fbf8ef; --raised:#eee9da;
+  --line:#dad2bd; --line-2:#e6e0ce; --grid:rgba(10,25,18,.04);
+  --ivory:#0d1f17; --ivory-2:#48594f; --ivory-3:#78877d;
+  --gold:#8a6414; --gold-dim:#f1e6cc; --sage:#1f6d54; --sage-dim:#dff0e7;
+  --red:#a6433a;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ivory);
+  font-family:var(--body); font-size:15.5px; line-height:1.64;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:68px 68px;
+}
+/* Fine grain over the whole page, the way a printed sheet has tooth. */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1160px; margin:0 auto; padding-inline:24px; position:relative; z-index:2}
+h1,h2,h3,h4{margin:0; font-family:var(--serif); font-weight:600; letter-spacing:-.02em; text-wrap:balance}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+a{color:inherit}
+::selection{background:var(--gold); color:var(--void)}
+
+/* ---------------- loader ---------------- */
+#loader{
+  position:fixed; inset:0; z-index:200; background:var(--void);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  transition:opacity .6s ease, visibility .6s ease;
+  animation:loaderOut .7s ease 7s forwards;   /* safety net if the script fails */
+}
+#loader.out{opacity:0; visibility:hidden; pointer-events:none}
+#loader .n{font-family:var(--serif); font-size:clamp(44px,9vw,86px); font-weight:600; color:var(--ivory); letter-spacing:-.03em}
+#loader .c{font-family:var(--mono); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-top:12px}
+@keyframes loaderOut{to{opacity:0; visibility:hidden; pointer-events:none}}
+@media (prefers-reduced-motion:reduce){ #loader{display:none} }
+
+/* ---------------- nav ---------------- */
+nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:60;
+  background:color-mix(in srgb, var(--ground) 82%, transparent);
+  backdrop-filter:blur(14px); border-bottom:1px solid var(--line-2)}
+nav .in{display:flex; align-items:center; justify-content:space-between; gap:18px;
+  max-width:1160px; margin:0 auto; padding:14px 24px}
+nav .mark{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-size:26px;
+  line-height:1; font-weight:600; font-style:italic; letter-spacing:.01em; text-decoration:none;
+  cursor:pointer; --logo-glow:6px}
+.loki-mark{display:inline-block; width:34px; height:34px; flex:none; background:var(--gold);
+  transform:translateY(1px); -webkit-mask:url("loki-crown.png") center/contain no-repeat;
+  mask:url("loki-crown.png") center/contain no-repeat; filter:drop-shadow(0 0 3px var(--gold))
+  drop-shadow(0 0 var(--logo-glow) color-mix(in srgb, var(--gold) 62%, transparent));
+  transition:filter .18s ease}
+nav .links{display:flex; gap:24px; font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.09em; text-transform:uppercase}
+nav .links a{color:var(--ivory-3); text-decoration:none; transition:color .2s}
+nav .links a:hover{color:var(--gold)}
+.ghost{font-family:var(--mono); font-size:11px; letter-spacing:.08em; background:transparent;
+  color:var(--ivory-3); border:1px solid var(--line); border-radius:999px; padding:6px 14px;
+  cursor:pointer; transition:.2s; text-transform:uppercase}
+.ghost:hover{color:var(--gold); border-color:var(--gold)}
+@media (max-width:820px){ nav .links{display:none} }
+
+/* ---------------- hero ---------------- */
+.hero{position:relative; background:var(--void); border-bottom:1px solid var(--line-2);
+  padding-block:70px 62px; overflow:hidden}
+.hero .wrap{display:grid; grid-template-columns:250px 1fr; gap:42px; align-items:start}
+.badgewrap{position:relative}
+
+/* The portrait arrives as fat pixels sliding in from the left, then dissolves
+   into the original image at full resolution. Click to replay. */
+.portrait{position:relative; margin:0; padding:7px; aspect-ratio:4/5; max-width:250px;
+  cursor:crosshair; overflow:visible; background:var(--panel); border:1px solid var(--gold);
+  box-shadow:8px 8px 0 var(--line)}
+#face{position:relative; z-index:1; width:100%; height:100%; display:block}
+.portrait figcaption{position:absolute; z-index:2; left:0; bottom:-32px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ivory-3)}
+/* Sits above the frame: below it, the location caption and this collide once
+   the column narrows. */
+.portrait .hint{position:absolute; z-index:2; right:0; top:-22px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; color:var(--ivory-3); opacity:.65}
+.portcap{font-family:var(--serif); font-style:italic; font-size:14px; color:var(--ivory-2);
+  margin-top:50px; line-height:1.5}
+
+.hello{font-family:var(--mono); font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ivory-3)}
+.hero h1{font-family:var(--serif); font-size:clamp(50px,9vw,104px); font-weight:600;
+  line-height:.95; letter-spacing:-.045em; margin-top:14px}
+.roles{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--ivory-2); margin-top:20px}
+.roles i{color:var(--gold); font-style:normal}
+.hero .pitch{font-family:var(--serif); font-size:clamp(19px,2.6vw,26px); line-height:1.4;
+  max-width:26ch; margin-top:26px; letter-spacing:-.015em}
+.hero .pitch b{color:var(--gold); font-weight:700}
+.hero .sub{color:var(--ivory-2); max-width:58ch; margin-top:18px; font-size:15px}
+.socials{display:flex; gap:10px; margin-top:28px; flex-wrap:wrap}
+.soc{width:40px; height:40px; display:grid; place-items:center; border-radius:10px;
+  border:1px solid var(--line); color:var(--ivory-3); transition:.2s}
+.soc:hover{color:var(--gold); border-color:var(--gold); transform:translateY(-2px)}
+.soc svg{width:16px; height:16px}
+.motto{font-family:var(--mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--ivory-3); margin-top:34px}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr; gap:30px}
+  .badgewrap{max-width:330px; order:2}
+}
+@media (max-width:560px){
+  .portrait{max-width:210px}
+  .portcap{margin-top:46px}
+}
+
+/* ---------------- shared ---------------- */
+section{padding-block:76px; position:relative; z-index:2}
+.label{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--ivory-3); display:flex; align-items:center; gap:11px}
+.label::after{content:""; height:1px; flex:1; background:var(--line); max-width:110px}
+.shead h2{font-family:var(--serif); font-size:clamp(30px,5vw,50px); font-weight:600;
+  font-style:italic; margin-top:14px; letter-spacing:-.03em}
+.shead p{color:var(--ivory-2); max-width:66ch; margin:14px 0 0}
+.shead{margin-bottom:34px}
+.path{font-family:var(--mono); font-size:11px; color:var(--ivory-3); letter-spacing:.05em;
+  padding:8px 13px; border:1px solid var(--line); border-radius:7px; display:inline-block;
+  background:var(--panel); margin-bottom:18px}
+
+/* ---------------- simulator ---------------- */
+.sim{border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.sim .bar{display:flex; align-items:center; gap:8px; padding:12px 0; border-bottom:1px solid var(--line-2)}
+.dot{width:6px; height:6px; border-radius:50%}
+.dot.a{background:var(--red)} .dot.b{background:var(--gold)} .dot.c{background:var(--sage)}
+.sim .bar span{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em;
+  color:var(--ivory-3); margin-left:6px}
+.sim .body{display:grid; grid-template-columns:1.5fr 1fr}
+.sim .chart{padding:26px 26px 14px 0; border-right:1px solid var(--line-2)}
+.sim .side{padding:26px 0 26px 30px}
+svg.curve{width:100%; height:auto; display:block; overflow:visible}
+.ctrl label{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ivory-3); display:block; margin-bottom:14px}
+input[type=range]{width:100%; -webkit-appearance:none; appearance:none; background:transparent; cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px; border-radius:2px; background:var(--line)}
+input[type=range]::-moz-range-track{height:4px; border-radius:2px; background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:18px; height:18px; margin-top:-7px;
+  border-radius:50%; background:var(--gold); border:3px solid var(--panel); box-shadow:0 0 0 1px var(--gold)}
+input[type=range]::-moz-range-thumb{width:18px; height:18px; border:3px solid var(--panel);
+  border-radius:50%; background:var(--gold); box-shadow:0 0 0 1px var(--gold)}
+input[type=range]:focus-visible{outline:2px solid var(--sage); outline-offset:4px}
+.ro{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-2);
+  border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2); margin-top:26px}
+.ro>div{background:var(--ground); padding:15px 16px 15px 0}
+.ro>div:nth-child(even){padding-left:16px}
+.ro .rv{font-family:var(--serif); font-size:24px; font-weight:600; letter-spacing:-.03em; line-height:1.1}
+.ro .rk{font-family:var(--mono); font-size:9px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ivory-3); margin-top:6px}
+.verdict{margin-top:20px; padding:2px 0 2px 16px; font-size:13.8px; line-height:1.55;
+  border-left:2px solid var(--line)}
+.verdict.pos{border-left-color:var(--sage)}
+.verdict.neg{border-left-color:var(--red)}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:16px}
+.pill{font-family:var(--mono); font-size:10.5px; padding:6px 12px; border-radius:999px; cursor:pointer;
+  background:transparent; color:var(--ivory-3); border:1px solid var(--line); transition:.18s}
+.pill:hover{color:var(--gold); border-color:var(--gold)}
+.pill[aria-pressed=true]{background:var(--gold); color:var(--void); border-color:var(--gold); font-weight:600}
+@media (max-width:880px){ .sim .body{grid-template-columns:1fr}
+  .sim .chart{border-right:none; border-bottom:1px solid var(--line-2); padding-right:0}
+  .sim .side{padding-left:0} }
+
+/* ---------------- work ---------------- */
+.tabs{display:flex; gap:4px; border:1px solid var(--line); border-radius:999px; padding:4px;
+  background:var(--panel); width:fit-content; margin-bottom:22px}
+.tab{font-family:var(--mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+  padding:8px 18px; border-radius:999px; border:none; background:transparent; color:var(--ivory-3); cursor:pointer}
+.tab[aria-selected=true]{background:var(--gold); color:var(--void); font-weight:600}
+.work{display:grid; grid-template-columns:238px 1fr; gap:0; min-height:430px;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.list{border-right:1px solid var(--line-2); padding:22px 0}
+.list .ttl{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ivory-3); padding:0 22px 14px 0; display:flex; align-items:center; gap:8px}
+.list .ttl b{color:var(--gold); font-weight:500}
+/* Rows, numbers and a chevron on each one, so the list reads as something you
+   pick from rather than a paragraph of names. */
+.item{display:grid; grid-template-columns:auto 1fr auto; gap:13px; align-items:center;
+  width:100%; text-align:left; background:transparent; cursor:pointer;
+  border:none; border-bottom:1px solid var(--line-2); border-left:2px solid transparent;
+  padding:13px 16px 13px 0; color:var(--ivory-2); font-size:14px; font-family:var(--body);
+  transition:background .18s, color .18s, border-color .18s, padding-left .18s}
+.item:last-child{border-bottom:none}
+.item .ix{font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--ivory-3);
+  transition:color .18s}
+.item .lbl{min-width:0}
+.item .go{font-family:var(--mono); font-size:14px; line-height:1; color:var(--ivory-3);
+  opacity:.4; transition:opacity .18s, transform .18s, color .18s}
+.item small{display:block; font-family:var(--mono); font-size:10px; color:var(--ivory-3); margin-top:3px}
+
+.item:hover{color:var(--ivory); background:color-mix(in srgb, var(--gold) 7%, transparent);
+  padding-left:10px; border-left-color:color-mix(in srgb, var(--gold) 45%, transparent)}
+.item:hover .go{opacity:1; color:var(--gold); transform:translateX(3px)}
+.item:hover .ix{color:var(--ivory-2)}
+.item:focus-visible{outline:2px solid var(--sage); outline-offset:-2px}
+
+.item[aria-current=true]{color:var(--gold); font-weight:500; padding-left:14px;
+  border-left-color:var(--gold); background:color-mix(in srgb, var(--gold) 5%, transparent)}
+.item[aria-current=true] .ix,
+.item[aria-current=true] .go{color:var(--gold); opacity:1}
+.item[aria-current=true] .go{transform:translateX(3px)}
+
+/* One slow nudge on the chevrons the first time the list is seen, then still. */
+.list.nudge .item:not([aria-current=true]) .go{animation:nudge 2.6s ease 2}
+@keyframes nudge{0%,72%,100%{transform:translateX(0)} 84%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){ .list.nudge .item .go{animation:none} }
+.detail{padding:24px 0 30px 34px}
+.detail .idx{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--gold)}
+.detail h3{font-family:var(--serif); font-size:27px; font-weight:600; margin-top:10px; letter-spacing:-.025em}
+.detail .line{color:var(--ivory-2); margin-top:12px; max-width:62ch}
+.stack{display:flex; flex-wrap:wrap; gap:6px; margin-top:18px}
+.tg{font-family:var(--mono); font-size:10.5px; padding:4px 10px; border-radius:5px;
+  background:var(--raised); border:1px solid var(--line-2); color:var(--ivory-3)}
+.detail ul{margin:20px 0 0; padding-left:19px; color:var(--ivory-2); font-size:14.5px}
+.detail li{margin-bottom:8px} .detail li::marker{color:var(--sage)}
+.detail li b{color:var(--ivory); font-weight:600}
+.pipeline{border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.pipeline-track{display:grid; grid-template-columns:repeat(4,1fr); align-items:start; gap:0; position:relative}
+.pipeline-track::before{content:""; position:absolute; left:8%; right:8%; top:20px; height:1px;
+  background:var(--line); z-index:0}
+.pipeline-step{position:relative; z-index:1; display:grid; justify-items:center; gap:10px;
+  border:0; background:transparent; color:var(--ivory-3); cursor:pointer; font-family:var(--mono);
+  font-size:10px; letter-spacing:.1em; text-transform:uppercase; transition:color .2s}
+.pipeline-step .node{width:40px; height:40px; display:grid; place-items:center; border:1px solid var(--line);
+  border-radius:50%; background:var(--ground); color:var(--ivory-3); transition:.25s}
+.pipeline-step .node b{font-family:var(--serif); font-size:17px; font-weight:600}
+.pipeline-step:hover,.pipeline-step[aria-selected=true]{color:var(--gold)}
+.pipeline-step[aria-selected=true] .node{border-color:var(--gold); background:var(--gold-dim); color:var(--gold);
+  box-shadow:0 0 0 6px color-mix(in srgb, var(--gold) 10%, transparent); animation:pipelinePulse 2.4s ease-in-out infinite}
+@keyframes pipelinePulse{50%{transform:translateY(-3px); box-shadow:0 0 0 9px color-mix(in srgb, var(--gold) 4%, transparent)}}
+.pipeline-detail{display:grid; grid-template-columns:150px 1fr; gap:24px; margin-top:34px;
+  padding-top:22px; border-top:1px solid var(--line-2)}
+.pipeline-detail .stage{font-family:var(--mono); font-size:10px; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--gold)}
+.pipeline-detail h3{font-family:var(--serif); font-size:25px; margin-top:5px}
+.pipeline-detail p{color:var(--ivory-2); margin:7px 0 0; max-width:65ch}
+@media (max-width:700px){.pipeline-track{grid-template-columns:repeat(2,1fr); gap:20px 0}
+  .pipeline-track::before{display:none}.pipeline-detail{grid-template-columns:1fr; gap:6px}}
+@media (prefers-reduced-motion:reduce){.pipeline-step[aria-selected=true] .node{animation:none}}
+.mini{display:flex; flex-wrap:wrap; gap:26px; margin-top:24px; padding-top:20px; border-top:1px solid var(--line-2)}
+.mini .mv{font-family:var(--serif); font-size:23px; font-weight:600; color:var(--gold); letter-spacing:-.02em}
+.mini .mk{font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ivory-3); margin-top:2px}
+@media (max-width:820px){ .work{grid-template-columns:1fr}
+  .list{border-right:none; border-bottom:1px solid var(--line-2)}
+  .detail{padding:24px 0 26px} }
+
+/* ---------------- about / stack ---------------- */
+.two{display:grid; grid-template-columns:1.4fr 1fr; gap:26px; align-items:start}
+.card{padding:0}
+.card + .card{margin-top:34px; padding-top:30px; border-top:1px solid var(--line-2)}
+.plain{padding:0}
+.plain + .plain{margin-top:34px; padding-top:30px; border-top:1px solid var(--line-2)}
+.meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:20px;
+  margin-top:26px; padding-top:22px; border-top:1px solid var(--line-2)}
+.meta .mk{font-family:var(--mono); font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ivory-3)}
+.meta .mv{margin-top:5px; font-size:14.5px}
+.stackgrid{display:flex; flex-wrap:wrap; gap:8px}
+.st{font-family:var(--mono); font-size:11.5px; padding:8px 13px; border-radius:8px;
+  background:var(--panel); border:1px solid var(--line); color:var(--ivory-2); transition:.18s}
+.st:hover{border-color:var(--gold); color:var(--gold)}
+
+/* ---------------- data rows ---------------- */
+.row{display:grid; grid-template-columns:minmax(118px,1.4fr) 3fr minmax(62px,auto); gap:14px;
+  align-items:center; font-size:13.5px; margin-bottom:11px}
+.row:last-child{margin-bottom:0}
+.track{position:relative; height:22px; background:var(--raised); border-radius:5px; overflow:hidden}
+.fill{position:absolute; top:0; bottom:0; left:0; border-radius:5px; background:var(--sage); opacity:.75}
+.fill.hot{background:var(--red)}
+.fill.pos{left:50%} .fill.neg{right:50%; left:auto}
+.mid{position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--line)}
+.rv{font-family:var(--mono); font-size:12px; text-align:right}
+
+/* ---------------- timeline / edu ---------------- */
+.tl{position:relative; padding-left:26px}
+.tl::before{content:""; position:absolute; left:4px; top:8px; bottom:8px; width:1px; background:var(--line)}
+.ti{position:relative; padding-bottom:26px}
+.ti:last-child{padding-bottom:0}
+.ti::before{content:""; position:absolute; left:-26px; top:7px; width:9px; height:9px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 0 4px var(--panel)}
+.ti .when{font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; color:var(--gold)}
+.ti h4{font-family:var(--serif); font-size:18px; font-weight:600; margin-top:5px}
+.ti .where{font-family:var(--mono); font-size:12px; color:var(--ivory-3); margin-top:3px}
+.ti ul{margin:10px 0 0; padding-left:17px; color:var(--ivory-2); font-size:14px}
+.ti li{margin-bottom:5px}
+.certs{list-style:none; margin:0; padding:0}
+.certs li{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
+  border-bottom:1px solid var(--line-2); font-size:14px}
+.certs li:last-child{border-bottom:none}
+.certs .by{font-family:var(--mono); font-size:10.5px; color:var(--ivory-3); white-space:nowrap}
+
+/* ---------------- contact ---------------- */
+.contact{background:var(--void); border-top:1px solid var(--line-2); padding-block:82px}
+.contact h2{font-family:var(--serif); font-size:clamp(34px,6vw,64px); font-style:italic;
+  font-weight:600; letter-spacing:-.035em; line-height:1.02}
+.contact p{color:var(--ivory-2); max-width:54ch; margin:20px 0 0}
+.open{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+.open span{font-family:var(--mono); font-size:11px; padding:7px 14px; border-radius:999px;
+  border:1px solid var(--line); color:var(--ivory-2)}
+.mailbtn{display:inline-flex; align-items:center; gap:10px; margin-top:26px; padding:14px 22px;
+  border-radius:11px; background:var(--gold); color:var(--void); text-decoration:none;
+  font-family:var(--mono); font-size:13px; font-weight:600; transition:.2s}
+.mailbtn:hover{filter:brightness(1.08); transform:translateY(-1px)}
+.quote{font-family:var(--serif); font-style:italic; font-size:17px; color:var(--ivory-2);
+  margin-top:56px; padding-top:26px; border-top:1px solid var(--line-2); max-width:60ch}
+footer{padding:22px 0 44px; color:var(--ivory-3); font-family:var(--mono); font-size:10.5px; letter-spacing:.14em}
+
+@media (max-width:860px){ .two{grid-template-columns:1fr} }
+@media (max-width:560px){
+  .wrap{padding-inline:17px} nav .in{padding-inline:17px}
+  section{padding-block:56px} .row{grid-template-columns:1fr; gap:4px} .rv{text-align:left}
+  .sim .chart{padding:22px 0 12px; border-right:none; border-bottom:1px solid var(--line-2)}
+  .sim .side{padding:22px 0}
+  .detail{padding:22px 0 26px}
+  .list{padding:18px 0}
+  .item, .list .ttl{padding-left:0}
+}
+/* ---------------- production layer ---------------- */
+#prog{position:fixed; top:0; left:0; height:2px; width:0; z-index:100;
+  background:linear-gradient(90deg, var(--gold), var(--sage)); transition:width .08s linear}
+
+/* Reveal on scroll. Never fully invisible, so the page still reads with JS off
+   and nothing important waits on an observer to appear. Named `reveal`, not
+   `rv`: that one already belongs to the value cell in the data rows. */
+.reveal{opacity:.5; transform:translateY(18px);
+  transition:opacity .65s cubic-bezier(.2,.75,.3,1), transform .65s cubic-bezier(.2,.75,.3,1)}
+.reveal.on{opacity:1; transform:none}
+
+/* Pointer-tracked sheen on the large surfaces. */
+.glow{position:relative}
+
+#motes{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:.55}
+.hero .wrap{z-index:2}
+
+.currently{display:inline-flex; align-items:center; gap:9px; margin-top:26px; padding:7px 14px;
+  border:1px solid var(--line); border-radius:999px; font-family:var(--mono); font-size:11px;
+  color:var(--ivory-2); background:var(--panel)}
+.currently i{width:6px; height:6px; border-radius:50%; background:var(--sage); flex:none;
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1; box-shadow:0 0 0 0 color-mix(in srgb,var(--sage) 60%,transparent)}
+  50%{opacity:.6; box-shadow:0 0 0 5px transparent}}
+
+.label b{font-family:var(--mono); color:var(--gold); font-weight:500; margin-right:2px}
+
+#loader .n{min-height:1.05em; transition:color .2s}
+#loader .n.done{color:var(--gold)}
+#loader .c{transition:opacity .3s}
+
+.segtabs{display:flex; gap:6px; margin-bottom:18px}
+.segtab{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+  padding:6px 11px; border-radius:6px; border:1px solid var(--line); background:transparent;
+  color:var(--ivory-3); cursor:pointer; transition:.16s}
+.segtab:hover{color:var(--gold); border-color:var(--gold)}
+.segtab[aria-pressed=true]{background:var(--gold); color:var(--void); border-color:var(--gold); font-weight:600}
+.fill{transition:width .5s cubic-bezier(.2,.75,.3,1)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important; animation-duration:.001s!important}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+
+<div id="prog"></div>
+
+<div id="loader" aria-hidden="true">
+  <div class="n" id="ldWord">Python</div>
+  <div class="c" id="ldCap">what I work with</div>
+</div>
+
+<body id="top">
+<nav>
+  <div class="in">
+    <a class="mark" href="#top" title="Return to top" aria-label="Loki home, return to top">
+      <span class="loki-mark" role="img" aria-label="Loki crown symbol"></span>Loki
+    </a>
+    <div class="links">
+      <a href="#work">Work</a><a href="#simulator">Deep dive</a>
+      <a href="#about">About</a><a href="#contact">Contact</a>
+    </div>
+    <button class="ghost" id="theme" type="button">Theme</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="motes" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="badgewrap">
+      <!-- Drop a photo in next to index.html as portrait.jpg and it appears here.
+           Until then this shows a deliberate placeholder. -->
+      <!-- Drop portrait.jpg beside index.html and it is sampled into the dots.
+           Without one, the monogram is sampled instead. -->
+      <figure class="portrait">
+        <canvas id="face" aria-label="Portrait rendered as a field of data points"></canvas>
+        <span class="hint" id="faceHint">monogram</span>
+        <figcaption>Elurupadu · Andhra Pradesh</figcaption>
+      </figure>
+      <p class="portcap">Final year. Looking for the team where the analysis
+        actually changes what happens next.</p>
+    </div>
+
+    <div>
+      <div class="hello">hello, I'm</div>
+      <h1>Lokesh<br>Sannidhi</h1>
+      <div class="roles">[ &nbsp;data analyst <i>·</i> data scientist <i>·</i> ml engineer <i>·</i> bi developer&nbsp; ]</div>
+      <p class="pitch">Anyone can fit a <b>model</b>. The work is the <b>decision</b> it leads to.</p>
+      <p class="sub">
+         B.Tech Graduate in Artificial Intelligence and Data Science. I turn messy data into
+        models people can act on: framing the business question, preparing and exploring the
+        data, training and evaluating machine learning models, and communicating the results
+        clearly to the people who have to decide. My work spans predictive modeling for
+        customer churn, NLP-based candidate ranking, and machine translation for
+        low-resource languages, published at IEEE GSEACT 2026. Looking for AI/ML and data
+        analytics internships where I can own a problem from raw data to a decision.
+      </p>
+      <div class="socials">
+        <a class="soc" href="https://linkedin.com/in/lokesh-sannidhi" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05a4.2 4.2 0 0 1 3.75-2c4 0 4.4 2.6 4.4 6V21h-4v-5.6c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21h-4V9Z"/></svg></a>
+        <a class="soc" href="https://github.com/lokesh-sannidhi-181" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8a2 2 0 0 1 .6-1.3c-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+        <a class="soc" href="mailto:lokeshsannidhi118@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></a>
+        <a class="soc" href="#simulator" aria-label="Try the model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg></a>
+      </div>
+      <div class="currently"><i></i> Currently deep in NLP and cost-sensitive modelling</div>
+      <div class="motto">Measure · Decide · Ship</div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<section id="work" style="background:var(--void); border-block:1px solid var(--line-2)">
+  <div class="wrap">
+    <div class="shead">
+      <div class="label"><b>01</b> Work</div>
+      <h2>Projects &amp; experience</h2>
+      <p>Five projects across machine learning, NLP and business intelligence.
+        Fewer feature lists, more problems and tradeoffs.
+        <strong style="color:var(--ivory)">Select any project on the left to read it.</strong></p>
+    </div>
+    <div class="path">~/lokesh/workspace</div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabP" aria-selected="true">Projects</button>
+      <button class="tab" role="tab" id="tabE" aria-selected="false">Experience</button>
+    </div>
+    <div class="work glow">
+      <div class="list"><div class="ttl" id="listTitle">Selected</div><div id="list"></div></div>
+      <div class="detail" id="detail"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="simulator">
+  <div class="wrap">
+    <div class="shead">
+      <div class="label"><b>02</b> One project, in depth</div>
+      <h2>Churn Risk Monitor, up close</h2>
+      <p>One of the five above, opened up. It is here because it is the project where
+        the analysis changed the answer, not because it is the only one. Live output from the
+        model: the slider sets how risky a customer has to be before the retention team calls
+        them, and every figure recomputes — including the point where calling more people
+        starts destroying value.</p>
+    </div>
+    <div class="sim glow">
+      <div class="bar"><i class="dot a"></i><i class="dot b"></i><i class="dot c"></i>
+        <span>churn_risk_monitor — retention campaign simulator</span></div>
+      <div class="body">
+        <div class="chart">
+          <svg id="curve" class="curve" viewBox="0 0 620 330" role="img"
+               aria-label="Net campaign profit against contact threshold"></svg>
+        </div>
+        <div class="side">
+          <div class="ctrl">
+            <label for="thr">Call every customer at or above this churn risk</label>
+            <input type="range" id="thr" min="0" max="100" step="2" value="54">
+          </div>
+          <div class="ro">
+            <div><div class="rv num" id="oThr">54%</div><div class="rk">Risk threshold</div></div>
+            <div><div class="rv num" id="oCalls">1,370</div><div class="rk">Customers called</div></div>
+            <div><div class="rv num" id="oCost">$110,751</div><div class="rk">Campaign cost</div></div>
+            <div><div class="rv num" id="oProfit">$52,892</div><div class="rk">Net profit</div></div>
+          </div>
+          <div class="verdict pos" id="oVerdict"></div>
+          <div class="chips">
+            <button class="pill" type="button" data-t="0">Call everyone</button>
+            <button class="pill" type="button" data-t="40">Textbook 0.40</button>
+            <button class="pill" type="button" data-t="54" aria-pressed="true">Optimum</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div style="height:26px"></div>
+    <div class="two">
+      <div class="card glow">
+        <div class="label" style="margin-bottom:18px">By segment</div>
+        <div class="segtabs">
+          <button class="segtab" type="button" data-m="risk" aria-pressed="true">Revenue at risk</button>
+          <button class="segtab" type="button" data-m="rate" aria-pressed="false">Churn rate</button>
+        </div>
+        <div id="segRows"></div>
+        <p style="color:var(--ivory-3); font-size:13px; margin:20px 0 0">
+          Month-to-month fibre customers are 30% of the base and carry
+          <b style="color:var(--ivory)">73% of the revenue at risk</b>. That concentration is
+          what makes a narrow campaign possible.</p>
+      </div>
+      <div class="card glow">
+        <div class="label" style="margin-bottom:22px">Churn drivers, as odds ratios</div>
+        <div id="drvRows"></div>
+        <p style="color:var(--ivory-3); font-size:13px; margin:20px 0 0">
+          A two-year contract cuts the odds of leaving by
+          <b style="color:var(--ivory)">77%</b>; fibre optic multiplies them by
+          <b style="color:var(--ivory)">2.8</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<section id="pipeline">
+  <div class="wrap">
+    <div class="shead">
+      <div class="label"><b>03</b> How I work</div>
+      <h2>From mess to meaning</h2>
+      <p>A good model is only one stage in the chain. Select a stage to see what I actually do there.</p>
+    </div>
+    <div class="pipeline glow">
+      <div class="pipeline-track" role="tablist" aria-label="Data workflow stages">
+        <button class="pipeline-step" type="button" role="tab" aria-selected="true">
+          <span class="node"><b>01</b></span><span>Collect</span>
+        </button>
+        <button class="pipeline-step" type="button" role="tab" aria-selected="false">
+          <span class="node"><b>02</b></span><span>Prepare</span>
+        </button>
+        <button class="pipeline-step" type="button" role="tab" aria-selected="false">
+          <span class="node"><b>03</b></span><span>Model</span>
+        </button>
+        <button class="pipeline-step" type="button" role="tab" aria-selected="false">
+          <span class="node"><b>04</b></span><span>Decide</span>
+        </button>
+      </div>
+      <div class="pipeline-detail" id="pipelineDetail"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--void); border-block:1px solid var(--line-2)">
+  <div class="wrap">
+    <div class="shead"><div class="label"><b>04</b> About</div><h2>About</h2></div>
+    <div class="two">
+      <div class="card plain">
+        <div class="path" style="margin-bottom:20px">~/me</div>
+        <p style="margin-top:0">I'm Lokesh Sannidhi — a data analyst who would rather ship a
+          decision than a notebook. Final-year B.Tech in Artificial Intelligence and Data
+          Science at Seshadri Rao Gudlavalleru Engineering College.</p>
+        <p>I work end to end: cleaning and modelling real data in SQL and Python, building the
+          reporting layer in Power BI and DAX, and putting models behind an interface someone
+          can actually use. My churn project went past the accuracy score into lifetime value,
+          campaign cost and the threshold where outreach stops paying for itself.</p>
+        <p>Right now I'm deepening the parts that decide whether a model survives contact with
+          a business — calibration, cost-sensitive thresholds, and explaining a prediction to
+          someone who will act on it.</p>
+        <div class="meta">
+          <div><div class="mk">Location</div><div class="mv">Elurupadu, Andhra Pradesh</div></div>
+          <div><div class="mk">Education</div><div class="mv">B.Tech AI &amp; DS — 8.75 CGPA</div></div>
+          <div><div class="mk">Role</div><div class="mv">Data analyst · Data scientist · ML</div></div>
+          <div><div class="mk">Available</div><div class="mv">From 2026</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card plain">
+          <div class="label" style="margin-bottom:20px">Education</div>
+          <div class="tl">
+            <div class="ti"><div class="when">2022 — 2026</div>
+              <h4>B.Tech, AI &amp; Data Science</h4>
+              <div class="where">Seshadri Rao Gudlavalleru Engineering College</div>
+              <div style="font-family:var(--serif); font-size:20px; color:var(--gold); margin-top:8px">CGPA 8.75</div></div>
+            <div class="ti"><div class="when">2020 — 2022</div>
+              <h4>Intermediate (MPC)</h4>
+              <div class="where">Sri Aditya Junior College, Bhimavaram</div>
+              <div style="font-family:var(--serif); font-size:20px; color:var(--gold); margin-top:8px">91.4%</div></div>
+          </div>
+        </div>
+        <div class="card plain">
+          <div class="label" style="margin-bottom:18px">Certifications</div>
+          <ul class="certs">
+            <li><span>AI &amp; Machine Learning</span><span class="by">SmartBridge</span></li>
+            <li><span>Data Analytics with Tableau</span><span class="by">SmartBridge</span></li>
+            <li><span>Oracle SQL DevGym</span><span class="by">Oracle</span></li>
+            <li><span>Generative AI</span><span class="by">SmartInternz</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><div class="label"><b>05</b> Tech stack</div><h2>Tools I build with</h2></div>
+    <div class="stackgrid">
+      <span class="st">Python</span><span class="st">SQL</span><span class="st">pandas</span>
+      <span class="st">NumPy</span><span class="st">scikit-learn</span><span class="st">Seaborn</span>
+      <span class="st">Matplotlib</span><span class="st">Power BI</span><span class="st">DAX</span>
+      <span class="st">Tableau</span><span class="st">Excel</span><span class="st">Power Query</span>
+      <span class="st">MySQL</span><span class="st">Oracle SQL</span><span class="st">Streamlit</span>
+      <span class="st">FastAPI</span><span class="st">spaCy</span><span class="st">pytest</span>
+      <span class="st">AWS EC2 / S3</span><span class="st">Git</span><span class="st">GitHub</span>
+      <span class="st">Java (basics)</span>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="label"><b>06</b> Let's work together</div>
+    <h2>Open to data roles<br>from 2026.</h2>
+    <p>Want to talk about a role, or pull apart the churn project? Email me — I reply within
+      a day.</p>
+    <div class="open">
+      <span>Data analyst roles</span><span>BI / analytics engineering</span>
+      <span>Data science roles</span><span>Internships &amp; new grad</span>
+    </div>
+    <a class="mailbtn" href="mailto:lokeshsannidhi118@gmail.com">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+      lokeshsannidhi118@gmail.com</a>
+    <p class="quote">"A model that nobody acts on is just an expensive opinion."</p>
+  </div>
+  <div class="wrap"><footer>© 2026 LOKESH SANNIDHI · ELURUPADU, ANDHRA PRADESH</footer></div>
+</section>
+
+<script>
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const root = document.documentElement;
+const $ = id => document.getElementById(id);
+
+/* ---------- loader: flick through the toolkit, land on the name ---------- */
+(function loader(){
+  const el = $("ldWord"), cap = $("ldCap");
+  if (!el) return;
+  const WORDS = ["Python","SQL","Power BI","Tableau","DAX","pandas","NumPy",
+    "scikit-learn","Seaborn","Streamlit","FastAPI","spaCy","MySQL","Oracle SQL",
+    "Excel","Power Query","AI / ML","NLP","EDA","pytest","Git",
+    "Churn Risk Monitor","ATS Resume Analyzer","mBART Translation",
+    "NYC Food Safety","Zomato Analytics"];
+
+  const ROLE = "data analyst · data scientist · ml";
+  if (reduced){ el.textContent = "Lokesh Sannidhi"; cap.textContent = ROLE; return; }
+
+  let i = 0, delay = 65;
+  const flick = () => {
+    el.textContent = WORDS[i % WORDS.length];
+    i++;
+    // Moves through the list quickly, then eases to a stop on the name.
+    // Slow enough that each word registers, roughly 2.6s end to end.
+    delay = delay < 120 ? delay + 4 : delay * 1.25;
+    if (delay < 430){ setTimeout(flick, delay); return; }
+    el.textContent = "Lokesh Sannidhi";
+    el.classList.add("done");
+    cap.textContent = ROLE;
+    // Let the name hold before dissolving, so it reads as the arrival point
+    // rather than another word in the sequence.
+    setTimeout(() => {
+      const screen = $("loader");
+      if (!screen) return;
+      screen.classList.add("out");
+      setTimeout(() => screen.remove(), 700);
+    }, 1500);
+  };
+  flick();
+})();
+
+/* ---------- theme ---------- */
+$("theme").addEventListener("click", () => {
+  const isLight = root.getAttribute("data-theme") === "light"
+    || (!root.hasAttribute("data-theme") && matchMedia("(prefers-color-scheme: light)").matches);
+  root.setAttribute("data-theme", isLight ? "dark" : "light");
+  try { localStorage.setItem("lsTheme", root.getAttribute("data-theme")); } catch (e) {}
+  drawCurve(current);
+});
+try { const s = localStorage.getItem("lsTheme"); if (s) root.setAttribute("data-theme", s); } catch (e) {}
+
+/* ---------- portrait: pixels sweep in, then resolve to the photo ---------- */
+(function face(){
+  const canvas = $("face"), hint = $("faceHint");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  const CELL_MS = 620;          // how long one pixel takes to fly home
+  const SPREAD_MS = 780;        // stagger across the width, left to right
+  const RESOLVE_MS = 620;       // blocks dissolving into the real image
+
+  let cells = [], geom = null, source = null;
+  let raf = null, W = 0, H = 0, t0 = 0, maxDelay = 0;
+
+  /* Sample the source into a grid of fat pixels, and remember exactly where the
+     image was drawn so the sharp version lands in the same place. */
+  function sample(image){
+    const box = canvas.getBoundingClientRect();
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = Math.max(box.width, 1); H = Math.max(box.height, 1);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const off = document.createElement("canvas");
+    off.width = Math.round(W); off.height = Math.round(H);
+    const octx = off.getContext("2d", {willReadFrequently: true});
+    octx.clearRect(0, 0, off.width, off.height);
+
+    geom = null;
+    if (image){
+      const frame = off.width / off.height, ratio = image.width / image.height;
+      // Crop to fill when the shapes are close, letterbox when they are not, so
+      // a tall image is not sliced through the middle.
+      const cover = Math.abs(frame - ratio) / frame < 0.25;
+      const scale = cover
+        ? Math.max(off.width / image.width, off.height / image.height)
+        : Math.min(off.width / image.width, off.height / image.height);
+      const w = image.width * scale, h = image.height * scale;
+      geom = {x: (off.width - w) / 2, y: (off.height - h) / 2, w, h};
+      octx.drawImage(image, geom.x, geom.y, geom.w, geom.h);
+    } else {
+      octx.fillStyle = cvar("--ivory");
+      octx.textAlign = "center"; octx.textBaseline = "middle";
+      octx.font = `700 ${Math.round(off.height * 0.4)}px Fraunces, Georgia, serif`;
+      octx.fillText("LS", off.width / 2, off.height / 2);
+    }
+
+    const data = octx.getImageData(0, 0, off.width, off.height).data;
+    const size = W < 240 ? 5 : 6;
+    cells = []; maxDelay = 0;
+    for (let y = 0; y < off.height; y += size){
+      for (let x = 0; x < off.width; x += size){
+        const i = ((y + (size >> 1) | 0) * off.width + (x + (size >> 1) | 0)) * 4;
+        if (data[i + 3] < 24) continue;
+        const delay = (x / off.width) * SPREAD_MS + Math.random() * 190;
+        if (delay > maxDelay) maxDelay = delay;
+        cells.push({
+          hx: x, hy: y, delay,
+          r: data[i], g: data[i + 1], b: data[i + 2], a: data[i + 3] / 255,
+          jitter: (Math.random() - .5) * 26
+        });
+      }
+    }
+    t0 = performance.now();
+  }
+
+  const easeOut = k => 1 - Math.pow(1 - k, 3);
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+
+  function paintSharp(alpha){
+    if (!source || !geom) return;
+    ctx.globalAlpha = alpha;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(source, geom.x, geom.y, geom.w, geom.h);
+    ctx.globalAlpha = 1;
+  }
+
+  function draw(now){
+    // Straight to the finished picture for anyone who asked for less motion.
+    if (reduced){
+      ctx.clearRect(0, 0, W, H);
+      if (source) paintSharp(1);
+      else paintBlocks(1, 1);
+      raf = null;
+      return;
+    }
+
+    const elapsedAll = now - t0;
+    // Everything has landed once the last pixel finishes its flight.
+    const settle = clamp01((elapsedAll - (maxDelay + CELL_MS)) / RESOLVE_MS);
+
+    ctx.clearRect(0, 0, W, H);
+    if (settle < 1) paintBlocks(now, 1 - settle);
+    if (settle > 0) paintSharp(source ? settle : 0);
+
+    raf = settle < 1 ? requestAnimationFrame(draw) : null;
+    // With no photo the blocks are the finished state, so hold them.
+    if (!source && settle >= 1) paintBlocks(now, 1);
+  }
+
+  function paintBlocks(now, fade){
+    const size = W < 240 ? 5 : 6;
+    for (const c of cells){
+      const elapsed = now === 1 ? 99999 : now - t0 - c.delay;
+      let k = elapsed <= 0 ? 0 : Math.min(elapsed / CELL_MS, 1);
+      k = easeOut(k);
+      const x = c.hx - (1 - k) * (c.hx + 90);
+      const y = c.hy + (1 - k) * c.jitter;
+      const s = size * (1 + (1 - k) * 1.5);
+      ctx.globalAlpha = c.a * (0.25 + 0.75 * k) * fade;
+      ctx.fillStyle = `rgb(${c.r},${c.g},${c.b})`;
+      ctx.fillRect(x, y, s, s);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function build(image){
+    source = image || null;
+    sample(image);
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(draw);
+  }
+
+  const SOURCES = ["portrait.webp", "portrait.jpg", "portrait.png"];
+  const img = new Image();
+  let tried = 0;
+  img.onload = () => { hint.textContent = "click to replay"; build(img); };
+  img.onerror = () => {
+    if (++tried < SOURCES.length){ img.src = SOURCES[tried]; return; }
+    hint.textContent = "add portrait.jpg";
+    build(null);
+  };
+  img.src = SOURCES[0];
+
+  canvas.addEventListener("click", () => {
+    if (reduced || !cells.length) return;
+    t0 = performance.now();
+    if (!raf) raf = requestAnimationFrame(draw);
+  });
+  addEventListener("resize", () => {
+    build(img.complete && img.naturalWidth ? img : null);
+  }, {passive: true});
+})();
+
+/* ---------- simulator ---------- */
+const CURVE = [[0,-354000,7043,661359],[0.02,-276807,6073,583169],[0.04,-210157,5433,514099],
+[0.06,-165421,5024,466612],[0.08,-136937,4709,435488],[0.1,-106494,4419,401337],
+[0.12,-88395,4234,380383],[0.14,-70350,4019,358803],[0.16,-55749,3839,340746],
+[0.18,-46298,3709,328595],[0.2,-31682,3444,309169],[0.22,-20932,3289,294159],
+[0.24,-7916,3084,275153],[0.26,3192,2929,258037],[0.28,10224,2809,246604],
+[0.3,16179,2704,236385],[0.32,23831,2554,222265],[0.34,28025,2479,213899],
+[0.36,31220,2414,207037],[0.38,35947,2289,195988],[0.4,38387,2219,189622],
+[0.42,41783,2109,179625],[0.44,45395,1979,167422],[0.46,48046,1864,156592],
+[0.48,49848,1769,147147],[0.5,51363,1655,136392],[0.52,52434,1520,123490],
+[0.54,52892,1370,110751],[0.56,52745,1265,101363],[0.58,52325,1200,95942],
+[0.6,51388,1140,90254],[0.62,49411,1025,80898],[0.64,45771,865,67799],
+[0.66,42165,745,57795],[0.68,38422,640,49255],[0.7,32445,490,37561],
+[0.72,29046,415,31944],[0.74,22891,305,23026],[0.76,17292,210,15940],
+[0.78,13441,155,11665],[0.8,8400,90,6736],[0.82,5811,60,4437],[0.84,3151,30,2292],
+[0.86,537,5,355],[0.88,0,0,0],[0.9,0,0,0],[0.92,0,0,0],[0.94,0,0,0],[0.96,0,0,0],
+[0.98,0,0,0],[1,0,0,0]];
+const OPT = CURVE.reduce((a, b) => b[1] > a[1] ? b : a);
+const cvar = n => getComputedStyle(root).getPropertyValue(n).trim();
+const cash = v => (v < 0 ? "-$" : "$") + Math.abs(Math.round(v)).toLocaleString();
+const mk = (tag, attrs) => { const e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+let current = CURVE.find(p => p[0] === 0.54);
+
+function drawCurve(point){
+  const svg = $("curve"); svg.textContent = "";
+  const W = 620, H = 330, L = 66, R = 16, T = 20, B = 44;
+  const vals = CURVE.map(p => p[1]);
+  const hi = Math.max(...vals), lo = Math.min(...vals), pad = (hi - lo) * .1;
+  const yMax = hi + pad, yMin = lo - pad;
+  const X = t => L + t * (W - L - R), Y = v => T + (yMax - v) / (yMax - yMin) * (H - T - B);
+  const faint = cvar("--ivory-3");
+
+  for (let v = Math.ceil(yMin / 100000) * 100000; v <= yMax; v += 100000){
+    svg.appendChild(mk("line", {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: cvar("--line"), "stroke-width": 1}));
+    const t = mk("text", {x: L - 9, y: Y(v) + 4, fill: faint, "font-size": 10,
+      "font-family": "IBM Plex Mono, monospace", "text-anchor": "end"});
+    t.textContent = (v < 0 ? "-$" : "$") + Math.abs(v / 1000) + "k"; svg.appendChild(t);
+  }
+  svg.appendChild(mk("line", {x1: L, x2: W - R, y1: Y(0), y2: Y(0), stroke: faint,
+    "stroke-width": 1.3, "stroke-dasharray": "5 4"}));
+
+  const d = CURVE.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
+  const area = d + ` L ${X(1)} ${Y(0)} L ${X(0)} ${Y(0)} Z`;
+  const defs = mk("defs", {});
+  const cUp = mk("clipPath", {id: "cUp"});
+  cUp.appendChild(mk("rect", {x: L, y: T, width: W - L - R, height: Math.max(Y(0) - T, 0)}));
+  const cDn = mk("clipPath", {id: "cDn"});
+  cDn.appendChild(mk("rect", {x: L, y: Y(0), width: W - L - R, height: Math.max(H - B - Y(0), 0)}));
+  defs.appendChild(cUp); defs.appendChild(cDn); svg.appendChild(defs);
+  svg.appendChild(mk("path", {d: area, fill: cvar("--sage"), opacity: .2, "clip-path": "url(#cUp)"}));
+  svg.appendChild(mk("path", {d: area, fill: cvar("--red"), opacity: .18, "clip-path": "url(#cDn)"}));
+  svg.appendChild(mk("path", {d, fill: "none", stroke: cvar("--sage"), "stroke-width": 2.5, "stroke-linejoin": "round"}));
+  svg.appendChild(mk("line", {x1: X(point[0]), y1: T, x2: X(point[0]), y2: H - B,
+    stroke: cvar("--gold"), "stroke-width": 1.3, opacity: .75}));
+  svg.appendChild(mk("circle", {cx: X(point[0]), cy: Y(point[1]), r: 6,
+    fill: cvar("--gold"), stroke: cvar("--panel"), "stroke-width": 2.5}));
+  for (let t = 0; t <= 1.001; t += .25){
+    const el = mk("text", {x: X(t), y: H - B + 21, fill: faint, "font-size": 10,
+      "font-family": "IBM Plex Mono, monospace", "text-anchor": "middle"});
+    el.textContent = t.toFixed(2); svg.appendChild(el);
+  }
+  const ax = mk("text", {x: (L + W - R) / 2, y: H - 6, fill: faint, "font-size": 11,
+    "font-family": "IBM Plex Sans, sans-serif", "text-anchor": "middle"});
+  ax.textContent = "churn risk threshold"; svg.appendChild(ax);
+}
+
+function update(pct){
+  const p = CURVE.find(c => Math.round(c[0] * 100) === pct) || CURVE[0];
+  current = p;
+  $("oThr").textContent = pct + "%";
+  $("oCalls").textContent = p[2].toLocaleString();
+  $("oCost").textContent = cash(p[3]);
+  const prof = $("oProfit");
+  prof.textContent = cash(p[1]);
+  prof.style.color = p[1] > 0 ? "var(--sage)" : p[1] < 0 ? "var(--red)" : "var(--ivory)";
+  const v = $("oVerdict"), short = OPT[1] - p[1];
+  if (p[2] === 0){ v.className = "verdict"; v.innerHTML = "<b>Nobody gets called.</b> Safe, and worth nothing."; }
+  else if (p[1] < 0){ v.className = "verdict neg";
+    v.innerHTML = `<b>This campaign destroys ${cash(Math.abs(p[1]))}.</b> The discount is going to ${p[2].toLocaleString()} people, most of whom were never going to leave.`; }
+  else if (p[0] === OPT[0]){ v.className = "verdict pos";
+    v.innerHTML = "<b>This is the optimum.</b> No other single threshold earns more."; }
+  else { v.className = "verdict pos";
+    v.innerHTML = `Profitable, but <b>${cash(short)} short</b> of the best threshold (${Math.round(OPT[0]*100)}%).`; }
+  document.querySelectorAll(".pill").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.t === pct)));
+  drawCurve(p);
+}
+$("thr").addEventListener("input", e => update(+e.target.value));
+document.querySelectorAll(".pill").forEach(b => b.addEventListener("click", () => {
+  $("thr").value = b.dataset.t; update(+b.dataset.t);
+}));
+update(54);
+addEventListener("resize", () => drawCurve(current), {passive: true});
+
+const PIPELINE = [
+  ["01 · COLLECT", "Start with the question", "Find the useful signal in messy source data: define the outcome, understand the business context, and make the assumptions visible before writing a model."],
+  ["02 · PREPARE", "Make the data trustworthy", "Clean missing values, inspect distributions, engineer features, and check for leakage so the result reflects reality rather than a convenient shortcut."],
+  ["03 · MODEL", "Measure what matters", "Compare sensible baselines, calibrate the probabilities, and evaluate with the metric that matches the cost of being wrong."],
+  ["04 · DECIDE", "Turn output into action", "Translate predictions into thresholds, money, and decisions people can use. The final question is always: what changes because of this analysis?"]
+];
+function renderPipeline(index){
+  document.querySelectorAll(".pipeline-step").forEach((button, i) =>
+    button.setAttribute("aria-selected", String(i === index)));
+  const [stage, title, copy] = PIPELINE[index];
+  $("pipelineDetail").innerHTML = `<div class="stage">${stage}</div><div><h3>${title}</h3><p>${copy}</p></div>`;
+}
+document.querySelectorAll(".pipeline-step").forEach((button, index) =>
+  button.addEventListener("click", () => renderPipeline(index)));
+renderPipeline(0);
+
+/* ---------- work tabs ---------- */
+const PROJECTS = [
+  {n:"Churn Risk Monitor", s:"Python · Streamlit", idx:"01",
+   line:"Retention analytics that goes past prediction into the money: what each customer is worth, what contacting them costs, and where to stop.",
+   stack:["Python","scikit-learn","Streamlit","pandas","pytest"],
+   pts:["Calibrated logistic regression — <b>predicted 27.3% churn against 26.5% observed</b>, which is what makes it safe to multiply probabilities by money.",
+        "Found <b>$142,296 of monthly revenue at risk</b>, and that calling every at-risk customer would <b>lose $354,000</b>.",
+        "Expected-value targeting instead: <b>1,340 calls, $52,913 profit, 0.49 ROI</b>.",
+        "Reads <b>any labelled churn CSV</b> — infers the outcome, revenue and tenure columns and reports what it decided before running."],
+   mini:[["0.840","ROC-AUC"],["0.139","Brier"],["171","Tests"]]},
+  {n:"ATS Resume Analyzer", s:"NLP · FastAPI", idx:"02",
+   line:"Full-stack NLP service that scores a resume against a job description and names the skills it is missing.",
+   stack:["spaCy","scikit-learn","FastAPI","asyncio","React + Vite"],
+   pts:["Scores out of 100 across <b>seven weighted evaluation factors</b>.",
+        "TF-IDF with cosine similarity to match against a job description and surface gaps.",
+        "Concurrent asyncio pipeline ranking <b>up to 50 resumes at once</b>.",
+        "Deployed end to end — Vercel frontend, Render backend, PDF and DOCX input."],
+   mini:[["50","Resumes / batch"],["7","Scoring factors"]]},
+  {n:"mBART Translation", s:"Transformers", idx:"03",
+   line:"Fine-tuning a multilingual transformer for language pairs without enough parallel data to train from scratch.",
+   stack:["mBART","Transformers","Python","BLEU / chrF"],
+   pts:["Built on pre-trained mBART, targeting <b>low-resource languages</b>.",
+        "Prepared multilingual parallel corpora — preprocessing, tokenization, dataset build.",
+        "Evaluated on <b>BLEU and chrF</b> rather than a single metric.",
+        "Closed the data gap with <b>back-translation and synthetic generation</b>."],
+   mini:[]},
+  {n:"NYC Food Safety", s:"Power BI · DAX", idx:"04",
+   line:"Power BI dashboard over New York City health inspections, built to find where the risk concentrates.",
+   stack:["Power BI","DAX","Excel","Power Query"],
+   pts:["Violations analysed across boroughs, cuisines and violation codes.",
+        "Cleaned in Excel and Power Query, <b>flagging reporting lags</b> in the source data.",
+        "<b>DAX measures</b> for calculated grades, average score and total violations — surfacing Manhattan as the highest-risk borough.",
+        "Slicers and drill-downs: borough grades, violation codes, cuisine trends, a 2010–2025 timeline."],
+   mini:[["34,018","Manhattan violations"],["21.05","Avg score"]]},
+  {n:"Zomato Analytics", s:"SQL · Power BI", idx:"05",
+   line:"SQL-first analysis of restaurant performance, delivered as an interactive Power BI report.",
+   stack:["SQL","Power BI","Excel"],
+   pts:["Cleaned, transformed and queried restaurant data in SQL and Excel.",
+        "Dashboards covering ratings, cuisines, online delivery and table-booking trends.",
+        "Turned findings into recommendations rather than charts."],
+   mini:[]}
+];
+const EXPERIENCE = [
+  {n:"AI & ML Intern", s:"SmartBridge · 2025", idx:"MAY — JUL 2025",
+   line:"Virtual internship working through AI and machine learning concepts on hands-on projects.",
+   stack:["Python","Tableau","Machine Learning"],
+   pts:["Worked on AI and ML concepts through hands-on projects.",
+        "Performed data cleaning, preprocessing and visualization.",
+        "Developed analytical skills using Python and Tableau."], mini:[]},
+  {n:"Data Analytics Intern", s:"SmartBridge · 2024", idx:"MAY 2024",
+   line:"Virtual internship focused on Tableau, built around the Index of Economic Freedom dataset.",
+   stack:["Tableau","Data cleaning","Visualization"],
+   pts:["Worked on the <b>Index of Economic Freedom</b> project.",
+        "Performed data cleaning, transformation and visualization in Tableau."], mini:[]}
+];
+
+let active = PROJECTS, activeIndex = 0;
+function renderWork(){
+  const list = $("list"); list.innerHTML = "";
+  active.forEach((item, i) => {
+    const b = document.createElement("button");
+    b.className = "item"; b.type = "button";
+    b.setAttribute("aria-current", String(i === activeIndex));
+    b.innerHTML =
+      `<span class="ix">${String(i + 1).padStart(2, "0")}</span>` +
+      `<span class="lbl">${item.n}<small>${item.s}</small></span>` +
+      `<span class="go" aria-hidden="true">&rarr;</span>`;
+    b.addEventListener("click", () => { activeIndex = i; renderWork(); });
+    list.appendChild(b);
+  });
+  const d = active[activeIndex];
+  $("detail").innerHTML =
+    `<div class="idx">${d.idx}</div><h3>${d.n}</h3><p class="line">${d.line}</p>
+     <div class="stack">${d.stack.map(s => `<span class="tg">${s}</span>`).join("")}</div>
+     <ul>${d.pts.map(p => `<li>${p}</li>`).join("")}</ul>
+     ${d.mini.length ? `<div class="mini">${d.mini.map(m =>
+        `<div><div class="mv num">${m[0]}</div><div class="mk">${m[1]}</div></div>`).join("")}</div>` : ""}`;
+}
+function selectTab(which){
+  const projects = which === "P";
+  active = projects ? PROJECTS : EXPERIENCE; activeIndex = 0;
+  $("tabP").setAttribute("aria-selected", String(projects));
+  $("tabE").setAttribute("aria-selected", String(!projects));
+  const count = active.length;
+  $("listTitle").innerHTML =
+    `<b>${count}</b> ${projects ? "projects" : "internships"} &mdash; pick one`;
+  renderWork();
+}
+// A single hint that the rows are selectable, shown once when first seen.
+(function hintOnce(){
+  const list = document.querySelector(".list");
+  if (!list || reduced || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    list.classList.add("nudge");
+    io.disconnect();
+    setTimeout(() => list.classList.remove("nudge"), 6000);
+  }), {threshold: .3});
+  io.observe(list);
+})();
+
+$("tabP").addEventListener("click", () => selectTab("P"));
+$("tabE").addEventListener("click", () => selectTab("E"));
+// Go through selectTab so the header count is set on first paint too.
+selectTab("P");
+
+/* ---------- data rows ---------- */
+(function rows(){
+  /* [label, monthly revenue at risk, share of total risk, predicted churn rate] */
+  const SEG = [["Month-to-month · Fiber",103447,.727,.573],["Month-to-month · DSL",19280,.135,.318],
+    ["One year · Fiber",10288,.072,.205],["One year · DSL",3241,.023,.091],
+    ["Two year · Fiber",2824,.02,.061],["Month-to-month · No net",1781,.013,.172]];
+  const DRV = [["Two-year contract",-1.454,.23],["Fiber optic internet",1.027,2.79],
+    ["No internet service",-.9,.41],["Months as a customer",-.792,.45],
+    ["One-year contract",-.705,.49],["Has phone service",-.551,.58],
+    ["Has online security",-.481,.62],["Has tech support",-.46,.63]];
+
+  function paintSegments(mode){
+    const idx = mode === "rate" ? 3 : 1;
+    const max = Math.max(...SEG.map(s => s[idx]));
+    $("segRows").innerHTML = SEG.map((s, i) => {
+      const value = s[idx];
+      const shown = mode === "rate"
+        ? Math.round(s[3] * 100) + "%"
+        : "$" + Math.round(s[1] / 1000) + "k";
+      return `<div class="row"><div>${s[0]}</div>
+        <div class="track"><div class="fill${i === 0 ? " hot" : ""}" style="width:${value / max * 100}%"></div></div>
+        <div class="rv">${shown}</div></div>`;
+    }).join("");
+  }
+  paintSegments("risk");
+  document.querySelectorAll(".segtab").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll(".segtab").forEach(b =>
+      b.setAttribute("aria-pressed", String(b === btn)));
+    paintSegments(btn.dataset.m);
+  }));
+
+  const drvMax = Math.max(...DRV.map(d => Math.abs(d[1])));
+  $("drvRows").innerHTML = DRV.map(([l, c, o]) => {
+    const half = Math.abs(c) / drvMax * 50, up = c > 0;
+    return `<div class="row"><div>${l}</div>
+      <div class="track"><div class="mid"></div>
+        <div class="fill ${up ? "hot pos" : "neg"}" style="width:${half}%"></div></div>
+      <div class="rv" style="color:${up ? "var(--red)" : "var(--sage)"}">×${o.toFixed(2)}</div></div>`;
+  }).join("");
+})();
+
+/* ---------- scroll progress ---------- */
+(function progress(){
+  const bar = $("prog");
+  const mark = document.querySelector(".mark");
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const depth = max > 0 ? Math.min(scrollY / max, 1) : 0;
+    bar.style.width = (depth * 100) + "%";
+    if (mark) mark.style.setProperty("--logo-glow", (6 + depth * 34) + "px");
+  };
+  addEventListener("scroll", onScroll, {passive: true});
+  addEventListener("resize", onScroll, {passive: true});
+  onScroll();
+})();
+
+/* ---------- reveal on scroll ---------- */
+(function reveal(){
+  const targets = document.querySelectorAll(".shead, .sim, .work, .card, .nm, .stackgrid, .tabs, .path");
+  if (reduced || !("IntersectionObserver" in window)){
+    targets.forEach(el => el.classList.add("on"));
+    return;
+  }
+  targets.forEach(el => el.classList.add("reveal"));
+  const io = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("on");
+    io.unobserve(entry.target);
+  }), {threshold: .12, rootMargin: "0px 0px -8% 0px"});
+  targets.forEach(el => io.observe(el));
+
+  // Anything already on screen is shown at once: the first frame must be
+  // finished, not waiting on a callback.
+  requestAnimationFrame(() => targets.forEach(el => {
+    if (el.getBoundingClientRect().top < innerHeight) { el.classList.add("on"); io.unobserve(el); }
+  }));
+
+  // Last resort. If the observer never fires -- a detached render, a snapshot,
+  // an environment that stubs it out -- nothing may be left dimmed.
+  setTimeout(() => targets.forEach(el => el.classList.add("on")), 2500);
+})();
+
+/* ---------- pointer sheen ---------- */
+document.querySelectorAll(".glow").forEach(el => {
+  el.addEventListener("pointermove", event => {
+    const box = el.getBoundingClientRect();
+    el.style.setProperty("--mx", (event.clientX - box.left) + "px");
+    el.style.setProperty("--my", (event.clientY - box.top) + "px");
+  }, {passive: true});
+});
+
+/* ---------- ambient motes behind the hero ---------- */
+(function motes(){
+  const canvas = $("motes");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0, pts = [], raf = null;
+
+  function size(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    pts = Array.from({length: Math.min(46, Math.round(w / 26))}, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .16,
+      r: Math.random() * 1.5 + .5, a: Math.random() * .5 + .18
+    }));
+  }
+  function paint(){
+    const gold = cvar("--gold");
+    ctx.clearRect(0, 0, w, h);
+    for (const p of pts){
+      ctx.globalAlpha = p.a; ctx.fillStyle = gold;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  function step(){
+    for (const p of pts){
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -4) p.x = w + 4; if (p.x > w + 4) p.x = -4;
+      if (p.y < -4) p.y = h + 4; if (p.y > h + 4) p.y = -4;
+    }
+    paint();
+    raf = requestAnimationFrame(step);
+  }
+  size(); paint();
+  if (!reduced) raf = requestAnimationFrame(step);
+  addEventListener("resize", () => { size(); paint(); }, {passive: true});
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && raf){ cancelAnimationFrame(raf); raf = null; }
+    else if (!document.hidden && !reduced && !raf) raf = requestAnimationFrame(step);
+  });
+})();
+</script>
